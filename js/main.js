@@ -24,6 +24,12 @@ function showQuestion() {
     document.getElementById('totalrightanswers').innerHTML = rightAnswers;
   } else {
     let question = questions[currentQuestion];
+    let percent = currentQuestion / questions.length;
+    percent = Math.round(percent * 100);
+
+    document.getElementById('progressbarquiz').innerHTML = `${percent} %`;
+    document.getElementById('progressbarquiz').style = `width: ${percent} %`;
+
     document.getElementById('questionheadline').innerHTML =
       question['question'];
     document.getElementById('answer1').innerHTML = question['answer_1'];
@@ -41,11 +47,13 @@ function answer(index) {
   if (selectedQuestionNo == question['right_answer']) {
     document.getElementById(index).classList.add('list-group-item-success');
     rightAnswers++;
+    AUDIO_SUCCESS.play();
   } else {
     document.getElementById(index).classList.add('list-group-item-danger');
     document
       .getElementById(idOfRightAnswer)
       .classList.add('list-group-item-success');
+    AUDIO_FAIL.play();
   }
   document.getElementById('next-btn').disabled = false;
 }
@@ -77,6 +85,9 @@ function resetAnswerButtons() {
 }
 
 function restartQuiz() {
-  let currentQuestion = 0;
-  showQuestion(currentQuestion);
+  rightAnswers = 0;
+  currentQuestion = 0;
+  document.getElementById('endscreensuccess').classList.add('d-none');
+  document.getElementById('mainquizwrapper').classList.remove('d-none');
+  init();
 }

@@ -83,3 +83,5 @@ let questions = [
 
 let currentQuestion = 0;
 let rightAnswers = 0;
+let AUDIO_SUCCESS = new Audio('assets/sounds/success.mp3');
+let AUDIO_FAIL = new Audio('assets/sounds/fail.mp3');
